@@ -2,10 +2,11 @@ package com.company.modle;
 
 
 public class Appointments {
-    private static int id = 1;
+    private int id;
     private String date;
-    private boolean isCompleted;
+    private Status completed;
     private Day[] days = new Day[4];
+    private static int counter;
 
     public Day[] getDays() {
         return days;
@@ -23,16 +24,10 @@ public class Appointments {
         this.date = date;
     }
 
-    public Appointments(int id, String date, boolean isCompleted) {
-        this.id = id;
-        this.date = date;
-        this.isCompleted = isCompleted;
-
-    }
-
     public Appointments(String date) {
         this.date = date;
-        id++;
+        this.completed = Status.معلق;
+        this.id = counter++;
     }
 
     public void day() {
@@ -52,27 +47,20 @@ public class Appointments {
     }
 
 
-    public boolean getIsCompleted() {
-        return isCompleted;
+    public void setCompleted(Status isCompleted) {
+        this.completed = isCompleted;
     }
 
-    public void setIsCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public Status getCompleted() {
+        return completed;
     }
 
     @Override
     public String toString() {
         return "\t" + id +
                 "\t" + date +
-                "\t" + (isCompleted ? "مكتمل" : "معلق");
+                "\t" + (completed.name())
+                ;
     }
 
 

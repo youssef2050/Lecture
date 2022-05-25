@@ -64,12 +64,12 @@ public class Lecture {
 
     }
 
-    public boolean removeAppointments(int id) {
+    public Appointments getAppointments(int id) {
         for (Appointments appointment : appointments) {
             if (appointment.getId() == id)
-                return appointments.remove(appointment);
+                return appointment;
         }
-        return false;
+        return null;
     }
 
     public String showAppointments() {
@@ -97,5 +97,13 @@ public class Lecture {
             }
         }
         return false;
+    }
+
+    public Appointments getAppointments(String date) {
+        for (Appointments appointment : appointments) {
+            if (appointment.getDate().equals(date))
+                return appointment;
+        }
+        return null;
     }
 }
