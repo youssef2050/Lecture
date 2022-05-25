@@ -74,7 +74,7 @@ public class Main {
         int numberId = scanner.nextInt();
         Lecture lecture = lectureController.getLecture(numberId);
         System.out.println("المواعيد الحالية للمحاضر:");
-        System.out.println(lecture.showAppointments(numberId));
+        System.out.println(lecture.showAppointments());
         System.out.println("***قائمة التعديل***\n" +
                 "ما الذي تريد تعديله؟ \n" +
                 "1. إضافة موعد جديد.\n" +
@@ -87,6 +87,9 @@ public class Main {
             case 1:
                 addAppointment(lecture);
                 break;
+            case 2:
+                removeAppointment(lecture);
+                break;
             case 5:
                 run();
                 break;
@@ -97,38 +100,28 @@ public class Main {
         }
     }
 
+    private void removeAppointment(Lecture lecture) {
+
+    }
+
     private void addAppointment(Lecture lecture) {
         System.out.print("دخل تاريخ اليوم الذي تريد إضافة موعد به: ");
         String date = scanner.next();
         System.out.println("الفترات الزمنية لذلك اليوم: ");
-//        for (Day days : LectureController.DAYS) {
-//            System.out.println(days.toString());
-//        }
+        Appointments appointments = new Appointments(date);
+        Day[] days = lectureController.getDays(date);
+        appointments.setDays(days);
+        for (Day day : days) {
+            System.out.println(day.toString());
+        }
         int numberTime = scanner.nextInt();
-        String time = "";
-//        switch (numberTime) {
-//            case 1:
-//                time = LectureController.DAYS.get(0).getStartTime() + "-" + LectureController.DAYS.get(0).getEndTime();
-//                break;
-//            case 2:
-//                time = LectureController.DAYS.get(1).getStartTime() + "-" + LectureController.DAYS.get(1).getEndTime();
-//                break;
-//            case 3:
-//                time = LectureController.DAYS.get(2).getStartTime() + "-" + LectureController.DAYS.get(2).getEndTime();
-//                break;
-//            case 4:
-//                time = LectureController.DAYS.get(3).getStartTime() + "-" + LectureController.DAYS.get(3).getEndTime();
-//                break;
-
-//        }
-//        if (lectureController.isAvailable(date, time)) {
-//            Appointments appointment = new Appointments(1, date, false);
-//            appointment.addDay(new Day(1, time.split("-")[0], time.split("-")[1], false));
-//            lecture.addAppointments(appointment);
-//            System.out.println("تم الاضافة بنجاح");
-//        } else {
-//            System.out.println("اختر موعد متاح ان وجد");
-//        }
+        if (appointments.getDays()[numberTime - 1].isAvailable()) {
+            appointments.getDays()[numberTime - 1].setAvailable(false);
+            lecture.addAppointments(appointments);
+            System.out.println("تم الاضافة بنجاح");
+        } else {
+            System.out.println("اختر موعد متاح ان وجد");
+        }
         listAppointments();
 
 

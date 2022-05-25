@@ -1,14 +1,19 @@
 package com.company.modle;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Appointments {
-    private int id;
+    private static int id = 1;
     private String date;
     private boolean isCompleted;
-    public List<Day> days = new ArrayList<Day>();
+    private Day[] days = new Day[4];
+
+    public Day[] getDays() {
+        return days;
+    }
+
+    public void setDays(Day[] days) {
+        this.days = days;
+    }
 
     public String getDate() {
         return date;
@@ -22,7 +27,19 @@ public class Appointments {
         this.id = id;
         this.date = date;
         this.isCompleted = isCompleted;
-        this.days = new ArrayList<Day>();
+
+    }
+
+    public Appointments(String date) {
+        this.date = date;
+        id++;
+    }
+
+    public void day() {
+        days[0] = new Day(1, "8:00", "9:00", true);
+        days[1] = new Day(2, "9:00", "10:00", true);
+        days[2] = new Day(3, "10:00", "11:00", true);
+        days[3] = new Day(4, "11:00", "12:00", true);
     }
 
 
@@ -53,16 +70,11 @@ public class Appointments {
 
     @Override
     public String toString() {
-        return "Appointments{" +
-                ", id=" + id +
-                ",\t date='" + date + '\'' +
-                ",\t isCompleted=" + isCompleted +
-                '}';
+        return "\t" + id +
+                "\t" + date +
+                "\t" + (isCompleted ? "مكتمل" : "معلق");
     }
 
-    public boolean addDay(Day day) {
-        return days.add(day);
-    }
 
 }
 

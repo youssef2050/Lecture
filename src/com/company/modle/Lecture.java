@@ -72,12 +72,10 @@ public class Lecture {
         return false;
     }
 
-    public String showAppointments(int id) {
+    public String showAppointments() {
         String result = "الترتيب  \t تاريخ/الوقت \t حالة";
         for (Appointments appointment : appointments) {
-            if (id == appointment.getId()) {
-                result += "\n" + appointment.toString();
-            }
+            result += "\n" + appointment.toString();
         }
         return result;
     }

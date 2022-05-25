@@ -1,5 +1,7 @@
 package com.company.controller;
 
+import com.company.modle.Appointments;
+import com.company.modle.Day;
 import com.company.modle.Lecture;
 
 import java.util.ArrayList;
@@ -66,5 +68,36 @@ public class LectureController {
                 return lecture;
         }
         return null;
+    }
+
+    public boolean isAvailable(String date, String time) {
+        for (Lecture lecture : lectures) {
+            if (lecture.getAppointments().size() > 0)
+                for (Appointments appointment : lecture.getAppointments()) {
+                    if (appointment.getDate().equals(date)) {
+                        for (Day day : appointment.getDays()) {
+                            if ((day.getStartTime() + "-" + day.getEndTime()).equals(time) && day.isAvailable()) {
+                                return true;
+                            } else
+                                return false;
+                        }
+                    }
+                }
+        }
+        return true;
+    }
+
+    public Day[] getDays(String date) {
+        for (Lecture lecture : lectures) {
+            if (lecture.getAppointments().size() > 0)
+                for (Appointments appointment : lecture.getAppointments()) {
+                    if (appointment.getDate().equals(date))
+                        return appointment.getDays();
+                }
+        }
+        return new Day[]{new Day(1, "8:00", "9:00", true),
+                new Day(2, "9:00", "10:00", true),
+                new Day(3, "10:00", "11:00", true),
+                new Day(4, "11:00", "12:00", true)};
     }
 }

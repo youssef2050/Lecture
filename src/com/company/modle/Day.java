@@ -2,7 +2,6 @@ package com.company.modle;
 
 public class Day {
     private int id;
-    private String date;
     private String startTime;
     private String endTime;
     private boolean available;
@@ -14,13 +13,8 @@ public class Day {
         this.available = available;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
-    public String getDate() {
-        return date;
-    }
+
 
     public boolean isAvailable() {
         return available;
@@ -60,4 +54,5 @@ public class Day {
                 startTime + '-' +
                 endTime + " . " + (isAvailable() ? "متاح" : "غير متوفر");
     }
+
 }
