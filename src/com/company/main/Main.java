@@ -60,13 +60,55 @@ public class Main {
 
         int answer = scanner.nextInt();
         switch (answer) {
-
             case 1:
-
+                showAppointmentsDate();
                 break;
-
+            case 2:
+                showAppointmentsLecture();
+                break;
+            case 3:
+                System.out.println("لا يوجد قاعة في المشروع");
+                listReports();
+                break;
+            case 4:
+                run();
+                break;
+            default:
+                System.out.println("ادخل عدد من 1 الى 4");
+                listReports();
+                break;
         }
 
+    }
+
+    private void showAppointmentsLecture() {
+        System.out.print("ادخل رقم المحاضر :");
+        int numberId = scanner.nextInt();
+        Lecture lecture = lectureController.getLecture(numberId);
+        if (lecture == null) {
+            System.out.println("لا يوجد محاضر بهذا الرقم، هل تريد المحاولة مرة أخرى (نعم / لا)؟");
+            String answer = scanner.next();
+            if (answer.equals("نعم")) {
+                listReports();
+            } else {
+                run();
+            }
+        } else {
+            System.out.println("المواعيد الحالية للمحاضر:");
+            System.out.println(lecture.showAppointments());
+            listReports();
+        }
+    }
+
+    private void showAppointmentsDate() {
+        System.out.println("أدخل التاريخ :");
+        String date = scanner.next();
+        System.out.println("الفترات الزمنية لذلك اليوم: ");
+        Day[] days = lectureController.getDays(date);
+        for (Day day : days) {
+            System.out.println(day.toString());
+        }
+        listReports();
     }
 
 
